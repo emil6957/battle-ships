@@ -11,13 +11,13 @@ test("Does ship make hit positions array", () => {
 
 test("Can ship get hit", () => {
     const smallShip = Ship(2);
-    smallShip.hit(2);
+    smallShip.hit(1);
     expect(smallShip.hitPositions).toEqual(["o", "x"]);
 });
 
 test("Ship can sink", () => {
     const ship = Ship(1);
-    ship.hit(1);
+    ship.hit(0);
     expect(ship.isSunk()).toBe(true);
 });
 
