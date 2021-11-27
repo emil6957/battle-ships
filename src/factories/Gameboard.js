@@ -14,16 +14,14 @@ function Gameboard() {
 
     const ships = [];
 
-    const place = (ship, x, y) => {
-        const position = x + (y * 10);
+    const place = (ship, position) => {
         for (let i = 0; ship.length > i; i++) {
             board[position + i] = "o";
         }
         ships.push({ ship, position });
     };
 
-    const recieveAttack = (x, y) => {
-        const position = x + (y * 10);
+    const recieveAttack = (position) => {
         if (board[position] === "o") {
             board[position] = "x";
             ships.forEach((ship) => {

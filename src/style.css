@@ -14,4 +14,67 @@ body {
 .new-game {
     height: 100vh;
     width: 100vw;
+    background: rgba(.7, .7, .7, .2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.p-name-container {
+    position: relative;
+    background: white;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+}
+
+.p-name-input {
+    font-size: 2rem;
+    outline: 0;
+    border: none;
+}
+
+.p-name-label {
+    font-size: 2rem;
+    position: absolute;
+    left: 2rem;
+    color: #777;
+    transition: transform 300ms ease-in-out;
+}
+
+.p-name-container:focus-within > .p-name-label,
+.p-name-input:not(:placeholder-shown) + .p-name-label {
+    transform: translate(-2rem, -3rem) scale(.8);
+}
+
+.board {
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.square {
+    height: 50px;
+    width: 50px;
+    background: white;
+    border: 1px solid black;
+}
+
+.ship-square { 
+    background: blue;
+}
+
+.hit-ship-square {
+    background: red;
+}
+
+.hit-square {
+    background: orange;
+}
+
+.boards-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

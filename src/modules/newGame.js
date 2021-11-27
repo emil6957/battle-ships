@@ -11,6 +11,7 @@ function newGame() {
     inputDiv.classList.add("p-name-container");
     label.classList.add("p-name-label");
 
+    name.placeholder = " ";
     label.textContent = "Player Name";
 
     inputDiv.appendChild(name);
