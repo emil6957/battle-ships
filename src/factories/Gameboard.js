@@ -22,6 +22,7 @@ function Gameboard() {
     };
 
     const recieveAttack = (position) => {
+        if (board[position] === "x" || board[position] === "M") return;
         if (board[position] === "o") {
             board[position] = "x";
             ships.forEach((ship) => {
