@@ -38,12 +38,14 @@ body {
     position: absolute;
     left: 2rem;
     color: #777;
+    pointer-events: none;
     transition: transform 300ms ease-in-out;
 }
 
 .p-name-container:focus-within > .p-name-label,
 .p-name-input:not(:placeholder-shown) + .p-name-label {
     transform: translate(-2rem, -3rem) scale(.8);
+    pointer-events: auto;
 }
 
 .board {

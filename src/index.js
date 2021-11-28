@@ -8,27 +8,45 @@ const updateEnemyBoard = require("./modules/updateEnemyBoard");
 
 newGame();
 
-function test2(p) {
-    p.game.place(p.battleship, 0);
+function computerAttack(p, board) {
+    const position = Math.floor(Math.random() * 100);
+    if (p.game.board[position] === "o" || p.game.board[position] === "#") {
+        p.game.recieveAttack(position);
+        return position;
+    }
+    computerAttack(p, board);
+    return position;
 }
 
-function test(p) {
-    console.log(p);
-    displayBoard(p.game.board);
-    test2(p);
-    updateEnemyBoard(p);
-}
-
-function ableToAttack(p, board) {
+function ableToAttack(p, board, x, y) {
     const squares = board.querySelectorAll(".square");
     squares.forEach((square) => {
         square.addEventListener("click", (e) => {
-            console.log(square);
             const { index } = e.target.dataset;
+            if (p.game.board[index] === "M" || p.game.board[index] === "x") return;
             p.game.recieveAttack(index);
             updateEnemyBoard(p, board);
+            computerAttack(x, y);
+            updateEnemyBoard(x, y);
+            console.log(p);
         });
     });
+}
+
+function tempPlaceShips(p1, p1Board, p2, p2Board) {
+    p1.game.place(p1.carrier, 0);
+    p1.game.place(p1.battleship, 23);
+    p1.game.place(p1.cruiser, 57);
+    p1.game.place(p1.submarine, 85);
+    p1.game.place(p1.destroyer, 61);
+    updateBoard(p1, p1Board);
+
+    p2.game.place(p2.carrier, 0);
+    p2.game.place(p2.battleship, 22);
+    p2.game.place(p2.cruiser, 27);
+    p2.game.place(p2.submarine, 45);
+    p2.game.place(p2.destroyer, 70);
+    updateBoard(p2, p2Board);
 }
 
 const input = document.querySelector(".p-name-input");
@@ -40,9 +58,8 @@ input.addEventListener("keydown", (e) => {
         const player2 = Player("computer");
         const p1Board = displayBoard(player1);
         const p2Board = displayBoard(player2);
-        player2.game.place(player2.battleship, 0);
-        updateEnemyBoard(player2, p2Board);
-        ableToAttack(player2, p2Board);
+        tempPlaceShips(player1, p1Board, player2, p2Board);
+        ableToAttack(player2, p2Board, player1, p1Board);
         newGameScreen.remove();
     }
 });
