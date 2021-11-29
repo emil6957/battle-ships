@@ -4,35 +4,30 @@ const updateBoard = require("./updateBoard");
 function randomPos(p, ship) {
     const random = Math.floor(Math.random() * 100);
     const isVertical = Math.floor(Math.random() * 2);
-    for (let i = 1; i < ship.length; i++) {
-        if ((random + i) % 10 === 0 || p.game.board[random + i - 1] === "o") {
-            randomPos(p, ship);
-            return;
+    if (isVertical) {
+        for (let i = 0; i < ship.length; i++) {
+            if (random >= 100 - i * 10 || p.game.board[random + i * 10] === "o") {
+                randomPos(p, ship);
+                return;
+            }
+        }
+    } else {
+        for (let i = 1; i < ship.length; i++) {
+            if ((random + i) % 10 === 0 || p.game.board[random + i - 1] === "o") {
+                randomPos(p, ship);
+                return;
+            }
         }
     }
-    p.game.place(ship, random);
-}
-
-function placeVertical(p, ship) {
-    const random = Math.floor(Math.random() * 100);
-    console.log(ship);
-    console.log(random);
-    // const isVertical = 1;
-    for (let i = 0; i < ship.length; i++) {
-        if (random >= 100 - i * 10 || p.game.board[random + i * 10] === "o") {
-            placeVertical(p, ship);
-            return;
-        }
-    }
-    p.game.place(ship, random, true);
+    p.game.place(ship, random, isVertical);
 }
 
 function placeRandom(p) {
     randomPos(p, p.carrier);
     randomPos(p, p.battleship);
     randomPos(p, p.cruiser);
-    placeVertical(p, p.submarine);
-    placeVertical(p, p.destroyer);
+    randomPos(p, p.submarine);
+    randomPos(p, p.destroyer);
     console.log(p);
 }
 
