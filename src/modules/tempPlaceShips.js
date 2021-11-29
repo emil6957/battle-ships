@@ -28,7 +28,6 @@ function placeRandom(p) {
     randomPos(p, p.cruiser);
     randomPos(p, p.submarine);
     randomPos(p, p.destroyer);
-    console.log(p);
 }
 
 function tempPlaceShips(p1, p1Board, p2, p2Board) {
