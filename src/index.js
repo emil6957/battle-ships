@@ -5,48 +5,29 @@ const newGame = require("./modules/newGame");
 const displayBoard = require("./modules/displayBoard");
 const updateBoard = require("./modules/updateBoard");
 const updateEnemyBoard = require("./modules/updateEnemyBoard");
+const computerAttack = require("./modules/computerAttack");
+const tempPlaceShips = require("./modules/tempPlaceShips");
+const displayWinner = require("./modules/displayWinner");
 
 newGame();
-
-function computerAttack(p, board) {
-    const position = Math.floor(Math.random() * 100);
-    if (p.game.board[position] === "o" || p.game.board[position] === "#") {
-        p.game.recieveAttack(position);
-        return position;
-    }
-    computerAttack(p, board);
-    return position;
-}
 
 function ableToAttack(p, board, x, y) {
     const squares = board.querySelectorAll(".square");
     squares.forEach((square) => {
         square.addEventListener("click", (e) => {
+            if (p.game.allSunk() || x.game.allSunk()) return;
             const { index } = e.target.dataset;
-            if (p.game.board[index] === "M" || p.game.board[index] === "x") return;
-            p.game.recieveAttack(index);
+            const position = parseInt(index, 10);
+            if (p.game.board[position] === "M" || p.game.board[position] === "x") return;
+            p.game.recieveAttack(position);
             updateEnemyBoard(p, board);
+            if (p.game.allSunk()) displayWinner(x);
+            if (p.game.allSunk()) return;
             computerAttack(x, y);
-            updateEnemyBoard(x, y);
-            console.log(p);
+            updateBoard(x, y);
+            if (x.game.allSunk()) displayWinner(p);
         });
     });
-}
-
-function tempPlaceShips(p1, p1Board, p2, p2Board) {
-    p1.game.place(p1.carrier, 0);
-    p1.game.place(p1.battleship, 23);
-    p1.game.place(p1.cruiser, 57);
-    p1.game.place(p1.submarine, 85);
-    p1.game.place(p1.destroyer, 61);
-    updateBoard(p1, p1Board);
-
-    p2.game.place(p2.carrier, 0);
-    p2.game.place(p2.battleship, 22);
-    p2.game.place(p2.cruiser, 27);
-    p2.game.place(p2.submarine, 45);
-    p2.game.place(p2.destroyer, 70);
-    updateBoard(p2, p2Board);
 }
 
 const input = document.querySelector(".p-name-input");

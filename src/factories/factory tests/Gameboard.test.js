@@ -125,3 +125,11 @@ test("can board see multiple ships sunk", () => {
     game.recieveAttack(4);
     expect(game.allSunk()).toBe(true);
 });
+
+test("can you hit first position of a ship(was a bug in the program", () => {
+    const game = Gameboard();
+    const carrier = Ship(5);
+    game.place(carrier, 0);
+    game.recieveAttack(0);
+    expect(carrier.hitPositions).toEqual(["x", "o", "o", "o", "o"]);
+});
