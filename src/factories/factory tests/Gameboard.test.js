@@ -143,3 +143,12 @@ test("Can you place ships vertically", () => {
         "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
     ]);
 });
+
+test("Can you sink vertical ships", () => {
+    const game = Gameboard();
+    const destoyer = Ship(2);
+    game.place(destoyer, 1, true);
+    game.recieveAttack(1);
+    game.recieveAttack(11);
+    expect(game.allSunk()).toBe(true);
+});

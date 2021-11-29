@@ -46,6 +46,18 @@ function Gameboard() {
                     case position - 4:
                         ship.ship.hit(4);
                         break;
+                    case position - 10:
+                        ship.ship.hit(1);
+                        break;
+                    case position - 20:
+                        ship.ship.hit(2);
+                        break;
+                    case position - 30:
+                        ship.ship.hit(3);
+                        break;
+                    case position - 40:
+                        ship.ship.hit(4);
+                        break;
                     default:
                 }
             });
