@@ -14,9 +14,13 @@ function Gameboard() {
 
     const ships = [];
 
-    const place = (ship, position) => {
+    const place = (ship, position, isVertical) => {
         for (let i = 0; ship.length > i; i++) {
-            board[position + i] = "o";
+            if (isVertical) {
+                board[position + i * 10] = "o";
+            } else {
+                board[position + i] = "o";
+            }
         }
         ships.push({ ship, position });
     };

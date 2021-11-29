@@ -126,10 +126,20 @@ test("can board see multiple ships sunk", () => {
     expect(game.allSunk()).toBe(true);
 });
 
-test("can you hit first position of a ship(was a bug in the program", () => {
+test("Can you place ships vertically", () => {
     const game = Gameboard();
-    const carrier = Ship(5);
-    game.place(carrier, 0);
-    game.recieveAttack(0);
-    expect(carrier.hitPositions).toEqual(["x", "o", "o", "o", "o"]);
+    const destoyer = Ship(2);
+    game.place(destoyer, 0, true);
+    expect(game.board).toEqual([
+        "o", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "o", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+    ]);
 });
