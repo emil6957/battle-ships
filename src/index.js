@@ -40,7 +40,7 @@ input.addEventListener("keydown", (e) => {
         const p1Board = displayBoard(player1);
         const p2Board = displayBoard(player2);
         newGameScreen.remove();
-        tempPlaceShips(player1, p1Board, player2, p2Board);
+        // tempPlaceShips(player1, p1Board, player2, p2Board);
         ableToAttack(player2, p2Board, player1, p1Board);
     }
 });

@@ -78,7 +78,6 @@ function pickPos(p, board, ship) {
 }
 
 function tempPlaceShips(p1, p1Board, p2, p2Board) {
-    updateBoard(p1, p1Board);
     setTimeout(() => {
         pickPos(p1, p1Board, p1.carrier);
     }, 100);
