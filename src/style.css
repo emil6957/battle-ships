@@ -86,3 +86,18 @@ body {
     text-align: center;
     margin: 2rem 0 4rem;
 }
+
+    .border-square {
+        height: 50px;
+        width: 50px;
+        background: white;
+        border: 1px solid red;
+        display: inline;
+    }
+
+.board-border {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: 1fr 11fr;
+    justify-content: wrap;
+}
