@@ -49,8 +49,8 @@ body {
 }
 
 .board {
-    width: 500px;
-    height: 500px;
+    width: 520px;
+    height: 520px;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
@@ -87,17 +87,36 @@ body {
     margin: 2rem 0 4rem;
 }
 
-    .border-square {
-        height: 50px;
-        width: 50px;
-        background: white;
-        border: 1px solid red;
-        display: inline;
-    }
+.border-square {
+    height: 50px;
+    width: 50px;
+    background: white;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+}
 
-.board-border {
+.board-border-horizontal {
+    display: flex;
+    grid-column-start: 2;
+}
+
+.board-border-vertical {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    grid-column-start: 1;
+}
+
+.board-wrapper {
     display: grid;
-    grid-template-columns: repeat(11, 1fr);
-    grid-template-rows: 1fr 11fr;
-    justify-content: wrap;
+    grid-template-columns: 52px 520px;
+    grid-template-rows: 52px 520px;
+    border: 1px solid black;
+}
+
+.edge {
+    grid-row-start: 1;
 }
