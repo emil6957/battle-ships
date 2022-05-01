@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/emil6957/battle-ships/issues"
   },
-  "homepage": "https://github.com/emil6957/battle-ships#readme",
+  "homepage": "https://github.com/emil6957/battle-ships/",
   "devDependencies": {
     "css-loader": "^6.5.1",
     "eslint": "^8.3.0",
