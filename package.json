@@ -1,9 +1,12 @@
 {
+  "homepage": "https://emil6957.github.io/battle-ships",
   "name": "battle-ships",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "jest",
     "build": "webpack",
     "watch": "webpack --watch"
@@ -18,7 +21,6 @@
   "bugs": {
     "url": "https://github.com/emil6957/battle-ships/issues"
   },
-  "homepage": "https://github.com/emil6957/battle-ships/",
   "devDependencies": {
     "css-loader": "^6.5.1",
     "eslint": "^8.3.0",
