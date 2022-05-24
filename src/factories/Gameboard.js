@@ -26,6 +26,16 @@ function Gameboard() {
         ships.push({ ship, position, isVertical });
     };
 
+    const shipSunk = (ship) => {
+        for (let i = 0; i < ship.ship.length; i++) {
+            if (ship.isVertical) {
+                board[ship.position + (i * 10)] = "X";
+            } else {
+                board[ship.position + i] = "X";
+            }
+        }
+    };
+
     const recieveAttack = (position) => {
         if (board[position] === "x" || board[position] === "M" || board[position] === "X") return;
         if (board[position] === "o") {
@@ -35,10 +45,12 @@ function Gameboard() {
                     if (ship.isVertical) {
                         if (position === ship.position + (i * 10)) {
                             ship.ship.hit(i);
+                            if (ship.ship.isSunk()) shipSunk(ship);
                         }
                     } else {
                         if (position === ship.position + i) {
                             ship.ship.hit(i);
+                            if (ship.ship.isSunk()) shipSunk(ship);
                         }
                     }
                 }

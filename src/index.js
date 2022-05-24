@@ -18,7 +18,7 @@ function ableToAttack(p, board, x, y) {
             if (p.game.allSunk() || x.game.allSunk()) return;
             const { index } = e.target.dataset;
             const position = parseInt(index, 10);
-            if (p.game.board[position] === "M" || p.game.board[position] === "x") return;
+            if (p.game.board[position] === "M" || p.game.board[position] === "x" || p.game.board[position] === "X") return;
             p.game.recieveAttack(position);
             updateEnemyBoard(p, board);
             if (p.game.allSunk()) displayWinner(x);

@@ -7,6 +7,9 @@ function updateEnemyBoard(p, board) {
         if (p.game.board[i] === "x") {
             squares[i].classList.add("hit-ship-square");
         }
+        if (p.game.board[i] === "X") {
+            squares[i].classList.add("sunk-ship-square");
+        }
     }
 }
 

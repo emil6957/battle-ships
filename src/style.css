@@ -82,6 +82,10 @@ body {
     background: orange;
 }
 
+.sunk-ship-square {
+    background: black;
+}
+
 .boards-container {
     display: flex;
     justify-content: space-around;

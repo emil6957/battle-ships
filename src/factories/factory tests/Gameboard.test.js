@@ -126,6 +126,48 @@ test("can board see multiple ships sunk", () => {
     expect(game.allSunk()).toBe(true);
 });
 
+test("does a sunk ship display on the board", () => {
+    const game = Gameboard();
+    const ship = Ship(3);
+    game.place(ship, 2);
+    game.recieveAttack(2);
+    game.recieveAttack(3);
+    game.recieveAttack(4);
+    expect(game.board).toEqual([
+        "#", "#", "X", "X", "X", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+    ]);
+});
+
+test("does a vertically sunk ship display on the board", () => {
+    const game = Gameboard();
+    const ship = Ship(3);
+    game.place(ship, 12, true);
+    game.recieveAttack(12);
+    game.recieveAttack(22);
+    game.recieveAttack(32);
+    expect(game.board).toEqual([
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "X", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "X", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "X", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+        "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
+    ]);
+});
+
 test("Can you place ships vertically", () => {
     const game = Gameboard();
     const destoyer = Ship(2);
