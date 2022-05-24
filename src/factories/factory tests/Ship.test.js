@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const Ship = require("../Ship");
 
-test("Does Ship accept a length", () => {
+test("does ship accept length", () => {
     expect(Ship(4).length).toBe(4);
 });
 
@@ -15,7 +15,15 @@ test("Can ship get hit", () => {
     expect(smallShip.hitPositions).toEqual(["o", "x"]);
 });
 
-test("Ship can sink", () => {
+test("After all of ships hit position have been hit it turns all to X", () => {
+    const ship = Ship(3);
+    ship.hit(0);
+    ship.hit(1);
+    ship.hit(2);
+    expect(ship.hitPositions).toEqual(["X", "X", "X"]);
+});
+
+test("Ship is sunk after all positions hit", () => {
     const ship = Ship(1);
     ship.hit(0);
     expect(ship.isSunk()).toBe(true);

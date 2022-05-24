@@ -3,9 +3,21 @@ function Ship(length) {
     for (let i = 0; length > i; i++) {
         hitPositions.push("o");
     }
-    const hit = (position) => { hitPositions[position] = "x"; };
 
-    const isSunk = () => hitPositions.every((position) => position === "x");
+    const sink = () => {
+        for (let i = 0; i < hitPositions.length; i++) {
+            hitPositions[i] = "X";
+        }
+    };
+
+    const hit = (position) => {
+        hitPositions[position] = "x";
+        if (hitPositions.every((pos) => pos === "x")) {
+            sink();
+        }
+    };
+
+    const isSunk = () => hitPositions.every((position) => position === "X");
 
     return {
         length,

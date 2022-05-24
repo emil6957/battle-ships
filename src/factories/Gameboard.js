@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 function Gameboard() {
     const board = [
         "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",
@@ -14,7 +15,7 @@ function Gameboard() {
 
     const ships = [];
 
-    const place = (ship, position, isVertical) => {
+    const place = (ship, position, isVertical = false) => {
         for (let i = 0; ship.length > i; i++) {
             if (isVertical) {
                 board[position + i * 10] = "o";
@@ -22,43 +23,24 @@ function Gameboard() {
                 board[position + i] = "o";
             }
         }
-        ships.push({ ship, position });
+        ships.push({ ship, position, isVertical });
     };
 
     const recieveAttack = (position) => {
-        if (board[position] === "x" || board[position] === "M") return;
+        if (board[position] === "x" || board[position] === "M" || board[position] === "X") return;
         if (board[position] === "o") {
             board[position] = "x";
             ships.forEach((ship) => {
-                switch (ship.position) {
-                    case position:
-                        ship.ship.hit(0);
-                        break;
-                    case position - 1:
-                        ship.ship.hit(1);
-                        break;
-                    case position - 2:
-                        ship.ship.hit(2);
-                        break;
-                    case position - 3:
-                        ship.ship.hit(3);
-                        break;
-                    case position - 4:
-                        ship.ship.hit(4);
-                        break;
-                    case position - 10:
-                        ship.ship.hit(1);
-                        break;
-                    case position - 20:
-                        ship.ship.hit(2);
-                        break;
-                    case position - 30:
-                        ship.ship.hit(3);
-                        break;
-                    case position - 40:
-                        ship.ship.hit(4);
-                        break;
-                    default:
+                for (let i = 0; i < ship.ship.length; i++) {
+                    if (ship.isVertical) {
+                        if (position === ship.position + (i * 10)) {
+                            ship.ship.hit(i);
+                        }
+                    } else {
+                        if (position === ship.position + i) {
+                            ship.ship.hit(i);
+                        }
+                    }
                 }
             });
         } else {
