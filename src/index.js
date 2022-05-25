@@ -11,21 +11,26 @@ const displayWinner = require("./modules/displayWinner");
 
 newGame();
 
-function ableToAttack(p, board, x, y) {
-    const squares = board.querySelectorAll(".square");
+function ableToAttack(p1, p1Board, p2, p2Board) {
+    const squares = p2Board.querySelectorAll(".square");
     squares.forEach((square) => {
         square.addEventListener("click", (e) => {
-            if (p.game.allSunk() || x.game.allSunk()) return;
+            if (p2.game.allSunk() || p1.game.allSunk()) return;
             const { index } = e.target.dataset;
             const position = parseInt(index, 10);
-            if (p.game.board[position] === "M" || p.game.board[position] === "x" || p.game.board[position] === "X") return;
-            p.game.recieveAttack(position);
-            updateEnemyBoard(p, board);
-            if (p.game.allSunk()) displayWinner(x);
-            if (p.game.allSunk()) return;
-            computerAttack(x, y);
-            updateBoard(x, y);
-            if (x.game.allSunk()) displayWinner(p);
+            if (p2.game.board[position] === "M" || p2.game.board[position] === "x" || p2.game.board[position] === "X") return;
+            p2.game.recieveAttack(position);
+            updateEnemyBoard(p2, p2Board);
+            if (p2.game.allSunk()) displayWinner(p1);
+            if (p2.game.allSunk()) return;
+            if (p2.game.board[position] === "x" || p2.game.board[position] === "X") return;
+            let compPos = computerAttack(p1, p1Board);
+            updateBoard(p1, p1Board);
+            while (p1.game.board[compPos] === "x" || p1.game.board[compPos] === "X") {
+                compPos = computerAttack(p1, p1Board);
+                updateBoard(p1, p1Board);
+            }
+            if (p1.game.allSunk()) displayWinner(p2);
         });
     });
 }
@@ -41,6 +46,6 @@ input.addEventListener("keydown", (e) => {
         const p2Board = displayBoard(player2);
         newGameScreen.remove();
         tempPlaceShips(player1, p1Board, player2, p2Board);
-        ableToAttack(player2, p2Board, player1, p1Board);
+        ableToAttack(player1, p1Board, player2, p2Board);
     }
 });
