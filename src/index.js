@@ -11,11 +11,18 @@ const displayWinner = require("./modules/displayWinner");
 
 newGame();
 
+function sleep(delay) {
+    // eslint-disable-next-line no-promise-executor-return
+    return new Promise((resolve) => setTimeout(resolve, delay));
+}
+
 function ableToAttack(p1, p1Board, p2, p2Board) {
+    let p2Turn = false;
     const squares = p2Board.querySelectorAll(".square");
     squares.forEach((square) => {
-        square.addEventListener("click", (e) => {
+        square.addEventListener("click", async (e) => {
             if (p2.game.allSunk() || p1.game.allSunk()) return;
+            if (p2Turn) return;
             const { index } = e.target.dataset;
             const position = parseInt(index, 10);
             if (p2.game.board[position] === "M" || p2.game.board[position] === "x" || p2.game.board[position] === "X") return;
@@ -24,11 +31,17 @@ function ableToAttack(p1, p1Board, p2, p2Board) {
             if (p2.game.allSunk()) displayWinner(p1);
             if (p2.game.allSunk()) return;
             if (p2.game.board[position] === "x" || p2.game.board[position] === "X") return;
+            p2Turn = true;
+            await sleep(500);
             let compPos = computerAttack(p1, p1Board);
             updateBoard(p1, p1Board);
+            if (p1.game.board[compPos] === "M") p2Turn = false;
             while (p1.game.board[compPos] === "x" || p1.game.board[compPos] === "X") {
+                // eslint-disable-next-line no-await-in-loop
+                await sleep(500);
                 compPos = computerAttack(p1, p1Board);
                 updateBoard(p1, p1Board);
+                if (p1.game.board[compPos] === "M") p2Turn = false;
             }
             if (p1.game.allSunk()) displayWinner(p2);
         });
