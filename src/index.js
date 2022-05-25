@@ -35,14 +35,13 @@ function ableToAttack(p1, p1Board, p2, p2Board) {
             await sleep(500);
             let compPos = computerAttack(p1, p1Board);
             updateBoard(p1, p1Board);
-            if (p1.game.board[compPos] === "M") p2Turn = false;
             while (p1.game.board[compPos] === "x" || p1.game.board[compPos] === "X") {
                 // eslint-disable-next-line no-await-in-loop
                 await sleep(500);
                 compPos = computerAttack(p1, p1Board);
                 updateBoard(p1, p1Board);
-                if (p1.game.board[compPos] === "M") p2Turn = false;
             }
+            if (p1.game.board[compPos] === "M") p2Turn = false;
             if (p1.game.allSunk()) displayWinner(p2);
         });
     });
