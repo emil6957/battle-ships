@@ -8,13 +8,9 @@ const updateEnemyBoard = require("./modules/updateEnemyBoard");
 const computerAttack = require("./modules/computerAttack");
 const tempPlaceShips = require("./modules/tempPlaceShips");
 const displayWinner = require("./modules/displayWinner");
+const sleep = require("./modules/sleep");
 
 newGame();
-
-function sleep(delay) {
-    // eslint-disable-next-line no-promise-executor-return
-    return new Promise((resolve) => setTimeout(resolve, delay));
-}
 
 function ableToAttack(p1, p1Board, p2, p2Board) {
     let p2Turn = false;
@@ -47,8 +43,7 @@ function ableToAttack(p1, p1Board, p2, p2Board) {
     });
 }
 
-const input = document.querySelector(".p-name-input");
-input.addEventListener("keydown", (e) => {
+function startGame(e) {
     if (e.key === "Enter") {
         const newGameScreen = e.target.parentNode.parentNode;
         const playerName = e.target.value;
@@ -60,4 +55,7 @@ input.addEventListener("keydown", (e) => {
         tempPlaceShips(player1, p1Board, player2, p2Board);
         ableToAttack(player1, p1Board, player2, p2Board);
     }
-});
+}
+
+const input = document.querySelector(".p-name-input");
+input.addEventListener("keydown", (e) => startGame(e));

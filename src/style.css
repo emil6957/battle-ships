@@ -92,12 +92,16 @@ body {
     align-items: center;
 }
 
-.winner-text {
-    font-size: 4rem;
+.top-text {
     position: absolute;
+    text-align: center;
     top: 3rem;
     left: 50%;
     transform: translate(-50%, 0);
+}
+
+.winner-text {
+    font-size: 4rem;
 }
 
 .border-square {
