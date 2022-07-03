@@ -11,6 +11,23 @@ const displayWinner = require("./modules/displayWinner");
 const sleep = require("./modules/sleep");
 
 newGame();
+let testplayer1;
+let testplayer2;
+let testp1Board;
+let testp2Board;
+
+function startGame(e) {
+    if (e.key === "Enter") {
+        const newGameScreen = e.target.parentNode.parentNode;
+        const playerName = e.target.value;
+        testplayer1 = Player(playerName);
+        testplayer2 = Player("computer");
+        testp1Board = displayBoard(testplayer1);
+        testp2Board = displayBoard(testplayer2);
+        newGameScreen.remove();
+        tempPlaceShips(testplayer1, testp1Board, testplayer2, testp2Board);
+    }
+}
 
 function ableToAttack(p1, p1Board, p2, p2Board) {
     let p2Turn = false;
@@ -24,7 +41,18 @@ function ableToAttack(p1, p1Board, p2, p2Board) {
             if (p2.game.board[position] === "M" || p2.game.board[position] === "x" || p2.game.board[position] === "X") return;
             p2.game.recieveAttack(position);
             updateEnemyBoard(p2, p2Board);
-            if (p2.game.allSunk()) displayWinner(p1);
+            if (p2.game.allSunk()) {
+                displayWinner(p1);
+                const restartButton = document.querySelector(".restart-btn");
+                restartButton.addEventListener("click", () => {
+                    newGame();
+                    const input = document.querySelector(".p-name-input");
+                    input.addEventListener("keydown", (event) => {
+                        startGame(event);
+                        ableToAttack(testplayer1, testp1Board, testplayer2, testp2Board);
+                    });
+                });
+            }
             if (p2.game.allSunk()) return;
             if (p2.game.board[position] === "x" || p2.game.board[position] === "X") return;
             p2Turn = true;
@@ -38,24 +66,24 @@ function ableToAttack(p1, p1Board, p2, p2Board) {
                 updateBoard(p1, p1Board);
             }
             if (p1.game.board[compPos] === "M") p2Turn = false;
-            if (p1.game.allSunk()) displayWinner(p2);
+            if (p1.game.allSunk()) {
+                displayWinner(p2);
+                const restartButton = document.querySelector(".restart-btn");
+                restartButton.addEventListener("click", () => {
+                    newGame();
+                    const input = document.querySelector(".p-name-input");
+                    input.addEventListener("keydown", (event) => {
+                        startGame(event);
+                        ableToAttack(testplayer1, testp1Board, testplayer2, testp2Board);
+                    });
+                });
+            }
         });
     });
 }
 
-function startGame(e) {
-    if (e.key === "Enter") {
-        const newGameScreen = e.target.parentNode.parentNode;
-        const playerName = e.target.value;
-        const player1 = Player(playerName);
-        const player2 = Player("computer");
-        const p1Board = displayBoard(player1);
-        const p2Board = displayBoard(player2);
-        newGameScreen.remove();
-        tempPlaceShips(player1, p1Board, player2, p2Board);
-        ableToAttack(player1, p1Board, player2, p2Board);
-    }
-}
-
 const input = document.querySelector(".p-name-input");
-input.addEventListener("keydown", (e) => startGame(e));
+input.addEventListener("keydown", (e) => {
+    startGame(e);
+    ableToAttack(testplayer1, testp1Board, testplayer2, testp2Board);
+});
