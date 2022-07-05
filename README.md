@@ -17,6 +17,8 @@ Users should be able to:
 
 ### Screenshots
 
+![Battle-Ships](https://user-images.githubusercontent.com/91159544/177338782-1504596b-94ba-438b-b992-ae356c15e560.png)
+
 ### Links
 
 - Code URL: [https://github.com/emil6957/battle-ships](https://github.com/emil6957/battle-ships)
@@ -91,10 +93,10 @@ function Ship(length) {
 module.exports = Ship;
 ```
 
-I also learned about keeping functions seperate by creating different files in a modules folder which all only do one thing.
+I also learned about keeping functions seperate by creating different files in a modules folder which all only do one thing,
+which then get imported into the main Index file.
 
-(img of files)
-
+![Capture](https://user-images.githubusercontent.com/91159544/177337080-df5d3ab8-fcf0-4c34-bd9c-163eed1a83b0.PNG)
 
 ### Useful resources
 
