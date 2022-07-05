@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-restricted-globals */
 const updateBoard = require("./updateBoard");
-// const updateEnemyBoard = require("./updateEnemyBoard");
+const updateEnemyBoard = require("./updateEnemyBoard");
 
 function randomPos(p, ship) {
     const random = Math.floor(Math.random() * 100);
@@ -96,7 +96,7 @@ function tempPlaceShips(p1, p1Board, p2, p2Board) {
 
     setTimeout(() => {
         placeRandom(p2);
-        updateBoard(p2, p2Board);
+        updateEnemyBoard(p2, p2Board);
     }, 100);
 }
 
